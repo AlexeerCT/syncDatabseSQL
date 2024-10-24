@@ -1,32 +1,15 @@
 const { Sequelize } = require('sequelize');
 
-// Conexión a la base de datos local
-const localDB = new Sequelize('nombre_base_local', 'usuario_local', 'contraseña_local', {
+// Conexión a la base de datos local (en el cliente)
+const localDb = new Sequelize('db_local', 'user_local', 'password_local', {
   host: 'localhost',
-  dialect: 'mssql',
-  port: 1433, // o el puerto que uses para SQL Server
-  logging: false,
-  dialectOptions: {
-    options: {
-      encrypt: false,
-      trustServerCertificate: true,
-    },
-  },
+  dialect: 'mysql', // O el dialecto que estés usando (mysql, postgres, mssql)
 });
 
-// Conexión a la base de datos del cliente
-const clientDB = new Sequelize('nombre_base_cliente', 'usuario_cliente', 'contraseña_cliente', {
-  host: 'direccion_cliente', // El host remoto de la base de datos del cliente
-  dialect: 'mssql',
-  port: 1433, // o el puerto que uses
-  logging: false,
-  dialectOptions: {
-    options: {
-      encrypt: false, // Esto depende de si la base de datos del cliente usa SSL
-      trustServerCertificate: true,
-    },
-  },
+// Conexión a la base de datos central (en el servidor)
+const centralDb = new Sequelize('db_central', 'user_central', 'password_central', {
+  host: 'remote-server.com',
+  dialect: 'mysql', // Cambia esto según el motor que uses
 });
 
-// Exportar ambas conexiones
-module.exports = { localDB, clientDB };
+module.exports = { localDb, centralDb };
