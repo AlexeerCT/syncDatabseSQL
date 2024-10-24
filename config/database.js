@@ -1,15 +1,17 @@
+// config/database.js
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
-// Conexión a la base de datos local (en el cliente)
-const localDb = new Sequelize('db_local', 'user_local', 'password_local', {
-  host: 'localhost',
-  dialect: 'mysql', // O el dialecto que estés usando (mysql, postgres, mssql)
+const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
+
+// Conexión a la base de datos central
+const sequelizeCentral = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: 'mssql',
+  logging: false,
 });
 
-// Conexión a la base de datos central (en el servidor)
-const centralDb = new Sequelize('db_central', 'user_central', 'password_central', {
-  host: 'remote-server.com',
-  dialect: 'mysql', // Cambia esto según el motor que uses
-});
 
-module.exports = { localDb, centralDb };
+// Exportar la conexión central
+module.exports = { sequelizeCentral };
