@@ -13,18 +13,17 @@ app.use('/api/clientes', clientConn);
 
 const startServer = async () => {
     try {
+      
+      app.listen(PORT, () => {
+        console.log(`Servidor escuchando en el puerto ${PORT}`);
+      });
+
       await sequelizeCentral.authenticate();
       console.log('Conectado a la base de datos central.');
       
       // Sincroniza los modelos antes de llamar a replicateAllDatabases
       await sequelizeCentral.sync();
-  
-      // Inicia la replicación de bases de datos
-      await replicateAllDatabases();
-      
-      app.listen(PORT, () => {
-        console.log(`Servidor escuchando en el puerto ${PORT}`);
-      });
+                          
     } catch (error) {
       console.error('Error al iniciar el servidor:', error);
     }

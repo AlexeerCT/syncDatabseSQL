@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      IdCliente: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       Empresa: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -22,11 +26,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      Server: {
+      ServerBD: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      Puerto: {
+      PuertoBD: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
